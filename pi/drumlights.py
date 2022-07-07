@@ -1,6 +1,6 @@
 import mido
 
-with mido.open_input(24) as inport:
+with mido.open_input() as inport:
     for msg in inport:
         print(msg)
 
