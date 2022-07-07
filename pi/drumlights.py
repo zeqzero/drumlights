@@ -1,16 +1,12 @@
-import mido, time
+import mido
 
 print('starting...')
 
-with mido.open_input() as inport:
-    t = time.time()
-    while True:
-        print('.', end='')
+midi_device_name = 'USB Midi Cable:USB Midi Cable MIDI 1 24:0'
 
+with mido.open_input(midi_device_name) as inport:
+    while True:
         for msg in inport:
             print(msg)
-        
-        if time.time() - t > 59:
-            t = time.time()
-            print('.', end='')
+
     
