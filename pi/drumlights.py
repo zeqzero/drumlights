@@ -1,8 +1,12 @@
 import mido, time
 
+print('starting...')
+
 with mido.open_input() as inport:
     t = time.time()
     while True:
+        print('.', end='')
+
         for msg in inport:
             print(msg)
         
