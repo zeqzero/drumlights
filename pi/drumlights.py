@@ -10,13 +10,13 @@ class Lightstrip:
         self.pixels = neopixel.NeoPixel(pixel_pin, pixel_count)
 
     def light(self, color):
-        self.pixels.fill(ftoi(color))
+        self.pixels.fill(ftoi(color.rgb))
 
     def turn_on(self):
         self.light(self.color)
 
     def turn_off(self):
-        self.pixels.fill(ftoi(Color('black')))
+        self.pixels.fill(ftoi(Color('black').rgb))
 
 print('starting drumlights...')
 
