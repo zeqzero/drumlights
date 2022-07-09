@@ -25,6 +25,7 @@
 #define NOTENUM_CRASH2_HEAD 51
 
 // drum led count
+#define NUM_LEDS_TEST 5
 #define NUM_LEDS_KICK 30
 #define NUM_LEDS_SNARE 48
 #define NUM_LEDS_TOM1 38
