@@ -41,12 +41,11 @@ class Lightstrip:
     def turn_off(self):
         self.pixels.fill(ftoi(Color('black').rgb))
 
-    def update(self, t):
-        if debug: print('update()', t)
-        self.pulse_timer -= t
+    def update(self, dt):
+        if debug: print('update()', dt)
 
         if self.pulse_timer > 0.0:
-            self.pulse_timer -= t
+            self.pulse_timer -= dt
         elif self.pulse_timer < 0.0:
             self.depulse()
 
@@ -78,8 +77,9 @@ class Drumlights:
                     print('-', end='')
                     self.lightstrips[0].pulse()
 
-            t = t - time.time()
-            self.update_lightstrips(t)
+            dt = t - time.time()
+            t = time.time()
+            self.update_lightstrips(dt)
 
 print('starting drumlights...')
 
