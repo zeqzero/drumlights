@@ -31,7 +31,7 @@ with mido.open_input(midi_device_name) as inport:
         for msg in inport:
             if msg.type == 'note_on':
                 print('-', end='')
-                lightstrips[0].light()
+                lightstrips[0].turn_on()
             if msg.type == 'note_off':
                 print('_', end='')
                 lightstrips[0].turn_off()
