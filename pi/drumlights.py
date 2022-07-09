@@ -9,16 +9,24 @@ else:
 def ftoi(float_tuple):
     return [round(f * 255.0) for f in float_tuple]
 
+def lerp(a, b, t):
+    return (1.0 - t) * a + t * b
+
 class Lightstrip:
     def __init__(self, name, pixel_pin, pixel_count, color):
         self.name, self.pixel_pin, self.pixel_count, self.color = name, pixel_pin, pixel_count, color
         self.pixels = neopixel.NeoPixel(pixel_pin, pixel_count)
         self.pulse_duration = 1.0
         self.pulse_timer = 0.0
-        self.turn_on(0.25)
+        self.default_luminance = 0.25
+        self.pulse_luminance = 0.5
+        self.turn_on()
 
     def light(self, color):
         self.pixels.fill(ftoi(color.rgb))
+
+    def turn_on(self):
+        turn_on(self.default_luminance)
 
     def turn_on(self, luminance):
         if debug: print('turn_on()')
@@ -30,6 +38,9 @@ class Lightstrip:
         if debug: print('depulse()')
         self.turn_on(luminance)
         self.pulse_timer = 0.0
+
+    def pulse(self):
+        self.pulse(pulse_luminance)
 
     def pulse(self, luminance=0.5):
         if debug: print('pulse()')
@@ -44,10 +55,16 @@ class Lightstrip:
     def update(self, dt):
         if debug: print('update()', dt)
 
-        if self.pulse_timer > 0.0:
-            self.pulse_timer -= dt
-        elif self.pulse_timer < 0.0:
-            self.depulse()
+        luminance = lerp(pulse_luminance, default_luminance, (pulse_timer / pulse_duration))
+
+        c = self.color
+        c.luminance = luminance
+        self.light(c.rgb)
+
+        #if self.pulse_timer > 0.0:
+        #    self.pulse_timer -= dt
+        #elif self.pulse_timer < 0.0:
+        #    self.depulse()
 
 class Drumlights:
     def __init__(self):
