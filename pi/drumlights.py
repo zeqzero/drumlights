@@ -1,5 +1,10 @@
-import mido, board, neopixel, random, time
+import mido, board, neopixel, random, time, sys
 from colour import Color
+
+if len(sys.argv) > 1 and sys.argv[1] == 'debug':
+    debug = True
+else:
+    debug = False
 
 def ftoi(float_tuple):
     return [round(f * 255.0) for f in float_tuple]
@@ -16,15 +21,18 @@ class Lightstrip:
         self.pixels.fill(ftoi(color.rgb))
 
     def turn_on(self, luminance):
+        if debug: print('turn_on()')
         c = self.color
         c.luminance = luminance
         self.light(c)
 
     def depulse(self, luminance=0.25):
+        if debug: print('depulse()')
         self.turn_on(luminance)
         self.pulse_timer = 0.0
 
     def pulse(self, luminance=0.5):
+        if debug: print('pulse()')
         c = self.color
         c.luminance = luminance
         self.light(c)
