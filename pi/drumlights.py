@@ -16,10 +16,10 @@ class Lightstrip:
     def __init__(self, name, pixel_pin, pixel_count, color):
         self.name, self.pixel_pin, self.pixel_count, self.color = name, pixel_pin, pixel_count, color
         self.pixels = neopixel.NeoPixel(pixel_pin, pixel_count)
-        self.pulse_duration = 1.0
+        self.pulse_duration = 0.25
         self.pulse_timer = 0.0
         self.default_luminance = 0.25
-        self.pulse_luminance = 0.5
+        self.pulse_luminance = 0.75
         self.turn_on()
 
     def light(self, color):
