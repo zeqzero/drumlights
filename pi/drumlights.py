@@ -23,6 +23,7 @@ class Lightstrip:
         self.turn_on()
 
     def light(self, color):
+        if debug: print('light()', color.rgb)
         self.pixels.fill(ftoi(color.rgb))
 
     def turn_on(self, luminance=None):
@@ -50,6 +51,7 @@ class Lightstrip:
         if debug: print('update()', dt)
 
         luminance = lerp(self.pulse_luminance, self.default_luminance, (self.pulse_timer / self.pulse_duration))
+        if debug: print('newlum: ', luminance)
 
         c = self.color
         c.luminance = luminance
