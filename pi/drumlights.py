@@ -41,7 +41,7 @@ class Lightstrip:
     def pulse(self):
         if debug: print('pulse()')
         c = self.color
-        c.luminance = c.luminance += self.pulse_luminance
+        c.luminance += self.pulse_luminance
         if c.luminance > self.maximum_luminance:
             c.luminance = self.maximum_luminance
         self.light(c)
