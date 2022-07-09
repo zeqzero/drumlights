@@ -28,7 +28,7 @@ class Lightstrip:
     def turn_on(self, luminance=None):
         if debug: print('turn_on()')
         c = self.color
-        c.luminance = luminance if luminance is not None else default_luminance
+        c.luminance = luminance if luminance is not None else self.default_luminance
         self.light(c)
 
     def depulse(self, luminance=0.25):
@@ -39,7 +39,7 @@ class Lightstrip:
     def pulse(self):
         if debug: print('pulse()')
         c = self.color
-        c.luminance = pulse_luminance
+        c.luminance = self.pulse_luminance
         self.light(c)
         self.pulse_timer = self.pulse_duration
 
@@ -49,7 +49,7 @@ class Lightstrip:
     def update(self, dt):
         if debug: print('update()', dt)
 
-        luminance = lerp(pulse_luminance, default_luminance, (pulse_timer / pulse_duration))
+        luminance = lerp(self.pulse_luminance, self.default_luminance, (self.pulse_timer / self.pulse_duration))
 
         c = self.color
         c.luminance = luminance
