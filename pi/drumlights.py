@@ -8,6 +8,9 @@ class Lightstrip:
     def light(self, color):
         self.pixels.fill(color)
 
+red = (255, 0, 0)
+blue = (0, 255, 0)
+green = (0, 0, 255)
 
 print('starting drumlights...')
 
@@ -20,5 +23,8 @@ lightstrips = (
 with mido.open_input(midi_device_name) as inport:
     while True:
         for msg in inport:
-            #print(msg)
-            lightstrips[0].light((random.randint(0,255), random.randint(0,255), random.randint(0,255)))
+            if msg.type == 'note_on'
+                print('.', end='')
+                lightstrips[0].light(random.choice((red,blue,green)))
+
+print ('exitting drumlights...')
