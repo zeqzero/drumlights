@@ -11,7 +11,7 @@ class Lightstrip:
 
 print('starting drumlights...')
 
-midi_device_name = 'USB Midi Cable:USB Midi Cable MIDI 1 24:0'
+midi_device_name = [m for m in mido.get_input_names() if 'USB Midi Cable' in m][0]
 
 lightstrips = (
     Lightstrip('test', board.D18, 30)
