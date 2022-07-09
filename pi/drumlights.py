@@ -69,7 +69,7 @@ class Drumlights:
                     self.lightstrips[0].pulse()
 
             t = t - time.time()
-            update_lightstrips(t)
+            self.update_lightstrips(t)
 
 print('starting drumlights...')
 
