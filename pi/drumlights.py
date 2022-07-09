@@ -25,10 +25,10 @@ class Lightstrip:
     def light(self, color):
         self.pixels.fill(ftoi(color.rgb))
 
-    def turn_on(self, luminance=self.default_luminance):
+    def turn_on(self, luminance=None):
         if debug: print('turn_on()')
         c = self.color
-        c.luminance = luminance
+        c.luminance = luminance if luminance is not None else default_luminance
         self.light(c)
 
     def depulse(self, luminance=0.25):
@@ -36,10 +36,10 @@ class Lightstrip:
         self.turn_on(luminance)
         self.pulse_timer = 0.0
 
-    def pulse(self, luminance=pulse_luminance):
+    def pulse(self):
         if debug: print('pulse()')
         c = self.color
-        c.luminance = luminance
+        c.luminance = pulse_luminance
         self.light(c)
         self.pulse_timer = self.pulse_duration
 
