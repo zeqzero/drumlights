@@ -45,7 +45,7 @@ class Lightstrip:
         c = self.color
         if self.pulse_timer > 0.0:
             self.pulse_timer -= t
-        else:
+        elif self.pulse_timer < 0.0:
             self.depulse()
 
 class Drumlights:
