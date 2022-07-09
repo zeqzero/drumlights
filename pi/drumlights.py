@@ -19,7 +19,7 @@ class Lightstrip:
         self.pulse_duration = 0.33
         self.pulse_timer = 0.0
         self.default_luminance = 0.25
-        self.maximum_luminance = 1.0
+        self.maximum_luminance = 0.75
         self.pulse_luminance = 0.125
         self.current_pulsed_luminance = 0.0
         self.turn_on()
@@ -81,6 +81,15 @@ class Drumlights:
     def setup_lightstrips(self):
         self.lightstrips = (
             Lightstrip('test', board.D18, 5, Color('blue')),
+            #Lightstrip('snare', board.D18, 5, Color('blue')),
+            #Lightstrip('tom1', board.D18, 5, Color('blue')),
+            #Lightstrip('tom2', board.D18, 5, Color('blue')),
+            #Lightstrip('tom3', board.D18, 5, Color('blue')),
+            #Lightstrip('kick', board.D18, 5, Color('blue')),
+            #Lightstrip('hihat', board.D18, 5, Color('blue')),
+            #Lightstrip('crash1', board.D18, 5, Color('blue')),
+            #Lightstrip('crash2', board.D18, 5, Color('blue')),
+            #Lightstrip('ride', board.D18, 5, Color('blue')),
         )
 
     def update_lightstrips(self, t):
