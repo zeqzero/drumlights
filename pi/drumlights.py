@@ -80,7 +80,7 @@ class Drumlights:
 
     def setup_lightstrips(self):
         self.lightstrips = (
-            Lightstrip('test', board.D18, 5, Color('blue')),
+            Lightstrip('test', board.D23, 5, Color('blue')),
             #Lightstrip('snare', board.D18, 5, Color('blue')),
             #Lightstrip('tom1', board.D18, 5, Color('blue')),
             #Lightstrip('tom2', board.D18, 5, Color('blue')),
