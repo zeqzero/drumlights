@@ -77,7 +77,7 @@ class Drumlights:
                     print('-', end='')
                     self.lightstrips[0].pulse()
 
-            dt = t - time.time()
+            dt = time.time() - t
             t = time.time()
             self.update_lightstrips(dt)
 
