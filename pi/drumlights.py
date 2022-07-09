@@ -17,7 +17,7 @@ print('starting drumlights...')
 midi_device_name = [m for m in mido.get_input_names() if 'USB Midi Cable' in m][0]
 
 lightstrips = (
-    Lightstrip('test', board.D18, 30),
+    Lightstrip('test', board.D18, 5),
 )
 
 with mido.open_input(midi_device_name) as inport:
