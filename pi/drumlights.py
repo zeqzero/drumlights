@@ -21,7 +21,7 @@ class Lightstrip:
         self.default_luminance = 0.25
         self.maximum_luminance = 0.75
         self.pulse_luminance = 0.125
-        self.current_pulsed_luminance
+        self.current_pulsed_luminance = 0.0
         self.turn_on()
 
     def light(self, color):
