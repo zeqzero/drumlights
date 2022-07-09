@@ -8,25 +8,25 @@ class Lightstrip:
     def __init__(self, name, pixel_pin, pixel_count, color):
         self.name, self.pixel_pin, self.pixel_count, self.color = name, pixel_pin, pixel_count, color
         self.pixels = neopixel.NeoPixel(pixel_pin, pixel_count)
-        self.pulse_duration = 5.0
+        self.pulse_duration = 1.0
         self.pulse_timer = 0.0
-        self.turn_on(0.5)
+        self.turn_on(0.25)
 
     def light(self, color):
         self.pixels.fill(ftoi(color.rgb))
 
-    def turn_on(self, value):
+    def turn_on(self, luminance):
         c = self.color
-        c.value = 0.5
+        c.luminance = luminance
         self.light(c)
 
-    def depulse(self, value=0.5):
-        self.turn_on(value)
+    def depulse(self, luminance=0.25):
+        self.turn_on(luminance)
         self.pulse_timer = 0.0
 
-    def pulse(self, value=1.0):
+    def pulse(self, luminance=0.5):
         c = self.color
-        c.value = value
+        c.luminance = luminance
         self.light(c)
         self.pulse_timer = self.pulse_duration
 
