@@ -42,8 +42,9 @@ class Lightstrip:
         self.pixels.fill(ftoi(Color('black').rgb))
 
     def update(self, t):
+        if debug: print('update()', t)
         self.pulse_timer -= t
-        
+
         if self.pulse_timer > 0.0:
             self.pulse_timer -= t
         elif self.pulse_timer < 0.0:
