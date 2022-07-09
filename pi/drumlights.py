@@ -23,7 +23,7 @@ lightstrips = (
 with mido.open_input(midi_device_name) as inport:
     while True:
         for msg in inport:
-            if msg.type == 'note_on'
+            if msg.type == 'note_on':
                 print('.', end='')
                 lightstrips[0].light(random.choice((red,blue,green)))
 
