@@ -53,7 +53,7 @@ class Lightstrip:
 
         c = self.color
         c.luminance = luminance
-        self.light(c.rgb)
+        self.light(c)
 
         #if self.pulse_timer > 0.0:
         #    self.pulse_timer -= dt
