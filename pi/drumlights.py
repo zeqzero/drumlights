@@ -48,15 +48,15 @@ class Lightstrip:
         self.pixels.fill(ftoi(Color('black').rgb))
 
     def update(self, dt):
-        if debug: print('update()', dt)
+        #if debug: print('update()', dt)
 
         if (self.pulse_timer > 0.0):
             luminance = lerp(self.pulse_luminance, self.default_luminance, (self.pulse_timer / self.pulse_duration))
             if debug: print('newlum: ', luminance)
 
-        c = self.color
-        c.luminance = luminance
-        self.light(c)
+            c = self.color
+            c.luminance = luminance
+            self.light(c)
 
         #if self.pulse_timer > 0.0:
         #    self.pulse_timer -= dt
