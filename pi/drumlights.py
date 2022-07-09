@@ -21,6 +21,7 @@ class Lightstrip:
         self.default_luminance = 0.25
         self.maximum_luminance = 0.75
         self.pulse_luminance = 0.125
+        self.current_pulsed_luminance
         self.turn_on()
 
     def light(self, color):
@@ -41,9 +42,10 @@ class Lightstrip:
     def pulse(self):
         if debug: print('pulse()')
         c = self.color
-        c.luminance += self.pulse_luminance
-        if c.luminance > self.maximum_luminance:
-            c.luminance = self.maximum_luminance
+        self.current_pulsed_luminance = c.luminance + self.pulse_luminance
+        if self.current_pulsed_luminance > self.maximum_luminance:
+            self.current_pulsed_luminance = self.maximum_luminance
+        c.luminance = self.current_pulsed_luminance
         self.light(c)
         self.pulse_timer = self.pulse_duration
 
@@ -55,7 +57,7 @@ class Lightstrip:
 
         if (self.pulse_timer > 0.0):
             self.pulse_timer -= dt
-            luminance = lerp(self.default_luminance, self.pulse_luminance, (self.pulse_timer / self.pulse_duration))
+            luminance = lerp(self.default_luminance, self.color.luminance, (self.pulse_timer / self.pulse_duration))
             if debug: print('newlum: ', luminance)
 
             c = self.color
