@@ -57,7 +57,7 @@ class Lightstrip:
 
         if (self.pulse_timer > 0.0):
             self.pulse_timer -= dt
-            luminance = lerp(self.default_luminance, self.color.luminance, (self.pulse_timer / self.pulse_duration))
+            luminance = lerp(self.default_luminance, self.current_pulsed_luminance, (self.pulse_timer / self.pulse_duration))
             if debug: print('newlum: ', luminance)
 
             c = self.color
