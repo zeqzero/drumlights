@@ -20,8 +20,8 @@ def dumpSerial():
         readMsg = arduino.readline()
 
 class Lightstrip:
-    def __init__(self, name, id, color):
-        self.name, self.id, self.color = name, id, color
+    def __init__(self, name, num, color):
+        self.name, self.num, self.color = name, num, color
         self.pulse_duration = 0.33
         self.pulse_timer = 0.0
         self.default_luminance = 0.25
@@ -40,7 +40,7 @@ class Lightstrip:
 
     def light(self, color):
         if debug: print('light()', color.rgb)
-        self.readWriteSerial(str.encode('<{},{},{},{}>'.format(id,*ftoi(color.rgb))))
+        self.readWriteSerial(str.encode('<{},{},{},{}>'.format(num,*ftoi(color.rgb))))
 
     def turn_on(self, luminance=None):
         if debug: print('turn_on()')
