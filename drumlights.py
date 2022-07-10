@@ -16,7 +16,7 @@ arduino = serial.Serial(port='/dev/ARDUINO', baudrate=115200, timeout=0)
 def dumpSerial():
     readMsg = arduino.readline()
     while readMsg:
-        print(readMsg)
+        if debug: print(readMsg)
         readMsg = arduino.readline()
 
 class Lightstrip:
@@ -33,7 +33,7 @@ class Lightstrip:
     def readWriteSerial(self, writeMsg):
         readMsg = arduino.readline()
         while readMsg:
-            print(readMsg)
+            if debug: print(readMsg)
             readMsg = arduino.readline()
         arduino.write(writeMsg)
         if debug: print('wrote to serial: ', writeMsg)
