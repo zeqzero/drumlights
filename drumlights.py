@@ -103,7 +103,10 @@ class Drumlights:
 
     def update_lightstrips(self, t):
         for lightstrip in self.lightstrips:
-            lightstrip.update(t)
+            try:
+                lightstrip.update(t)
+            except ValueError:
+                print('ValueError in lightstrip update()... look in to it ya fuckin idiot')
 
     def run(self):
         t = time.time()
