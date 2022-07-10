@@ -134,11 +134,22 @@ void loop() { // Main loop
   if (Serial.available()) {
     String command = Serial.readString();
 
+    if (command.length() == 13) {
+      String stripname = command.substring(0,4);
+      String r = command.substring(4,7);
+      String g = command.substring(7,10);
+      String b = command.substring(10);
+
+      lightLEDs(test_leds, NUM_LEDS_TEST, r.toInt(), g.toInt(), b.toInt());
+    }
+
+    /*
     if (command == "led_on") {
       lightLEDs(test_leds, NUM_LEDS_TEST, 0, 0, 127);
     } else if (command == "led_off") {
       lightLEDs(test_leds, NUM_LEDS_TEST, 0, 0, 0);
     }
+    */
     
   } else {
     lightLEDs(test_leds, NUM_LEDS_TEST, 0, 0, 0);
