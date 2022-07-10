@@ -12,6 +12,13 @@ def ftoi(float_tuple):
 def lerp(a, b, t):
     return (1.0 - t) * a + t * b
 
+arduino = serial.Serial(port='/dev/ARDUINO', baudrate=115200, timeout=0.1)
+def dumpSerial(self):
+        readMsg = arduino.readline()
+        while readMsg:
+            print(readMsg)
+            readMsg = arduino.readline()
+
 class Lightstrip:
     def __init__(self, name, id, color):
         self.name, self.id, self.color = name, id, color
@@ -73,7 +80,7 @@ class Drumlights:
         self.setup_midi()
         self.setup_lightstrips()
 
-        print(arduino.readline())
+        dumpSerial()
 
     def setup_midi(self):
         self.midi_device_name = [m for m in mido.get_input_names() if 'USB Midi Cable' in m][0]
@@ -112,8 +119,6 @@ class Drumlights:
             self.update_lightstrips(dt)
 
 print('starting drumlights...')
-
-arduino = serial.Serial(port='/dev/ARDUINO', baudrate=115200, timeout=0.1)
 
 d = Drumlights()
 d.run()
