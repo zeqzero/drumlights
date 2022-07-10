@@ -20,8 +20,8 @@ def dumpSerial():
         readMsg = arduino.readline()
 
 class Lightstrip:
-    def __init__(self, name, num, color):
-        self.name, self.num, self.color = name, num, color
+    def __init__(self, name, num, color, midi_notes):
+        self.name, self.num, self.color, self.midi_notes = name, num, color, midi_notes
         self.pulse_duration = 0.33
         self.pulse_timer = 0.0
         self.default_luminance = 0.25
@@ -89,16 +89,16 @@ class Drumlights:
 
     def setup_lightstrips(self):
         self.lightstrips = (
-            Lightstrip('test', 0, Color('blue')),
-            #Lightstrip('snare', board.D18, 5, Color('blue')),
-            #Lightstrip('tom1', board.D18, 5, Color('blue')),
-            #Lightstrip('tom2', board.D18, 5, Color('blue')),
-            #Lightstrip('tom3', board.D18, 5, Color('blue')),
-            #Lightstrip('kick', board.D18, 5, Color('blue')),
-            #Lightstrip('hihat', board.D18, 5, Color('blue')),
-            #Lightstrip('crash1', board.D18, 5, Color('blue')),
-            #Lightstrip('crash2', board.D18, 5, Color('blue')),
-            #Lightstrip('ride', board.D18, 5, Color('blue')),
+            Lightstrip('kick', 2, Color('orange'), [36]),
+            Lightstrip('snare', 3, Color('red'), [40, 38]),
+            Lightstrip('tom1', 4, Color('yellow'), [50, 48]),
+            Lightstrip('tom2', 5, Color('blue'), [47, 45]),
+            Lightstrip('tom3', 6, Color('green'), [58, 43]),
+            Lightstrip('hhat', 7, Color('yellow'), [26, 22]),
+            Lightstrip('crash1', 8, Color('green'), [55, 49]),
+            Lightstrip('crash2', 9, Color('green'), [59, 51]),
+            Lightstrip('ride', 10, Color('blue'), [52, 57]),
+            Lightstrip('test', 11, Color('pink'), [48]),
         )
 
     def update_lightstrips(self, t):
@@ -116,8 +116,10 @@ class Drumlights:
 
             for message in messages:
                 if message.type == 'note_on':
-                    print('-', end='')
-                    self.lightstrips[0].pulse()
+                    for lightstrip in self.lightstrips:
+                        if message.note in lightstrip.midi_notes:
+                            lightstrip.pulse()
+                            if debug: print('pulse ', lightstrip.name)
 
             dt = time.time() - t
             t = time.time()
