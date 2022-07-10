@@ -1,4 +1,4 @@
-import mido, board, neopixel, random, time, sys
+import mido, board, random, time, sys, serial
 from colour import Color
 
 if len(sys.argv) > 1 and sys.argv[1] == 'debug':
@@ -13,9 +13,8 @@ def lerp(a, b, t):
     return (1.0 - t) * a + t * b
 
 class Lightstrip:
-    def __init__(self, name, pixel_pin, pixel_count, color):
-        self.name, self.pixel_pin, self.pixel_count, self.color = name, pixel_pin, pixel_count, color
-        self.pixels = neopixel.NeoPixel(pixel_pin, pixel_count)
+    def __init__(self, name, id, color):
+        self.name, self.id, self.color = name, id, color
         self.pulse_duration = 0.33
         self.pulse_timer = 0.0
         self.default_luminance = 0.25
@@ -26,7 +25,8 @@ class Lightstrip:
 
     def light(self, color):
         if debug: print('light()', color.rgb)
-        self.pixels.fill(ftoi(color.rgb))
+        arduino.write(str.encode('<{},{},{},{}>'.format(id,*color.rgb)))
+        print(arduino.readline())
 
     def turn_on(self, luminance=None):
         if debug: print('turn_on()')
@@ -50,11 +50,9 @@ class Lightstrip:
         self.pulse_timer = self.pulse_duration
 
     def turn_off(self):
-        self.pixels.fill(ftoi(Color('black').rgb))
+        self.light(Color('black'))
 
     def update(self, dt):
-        #if debug: print('update()', dt)
-
         if (self.pulse_timer > 0.0):
             self.pulse_timer -= dt
             luminance = lerp(self.default_luminance, self.current_pulsed_luminance, (self.pulse_timer / self.pulse_duration))
@@ -63,11 +61,6 @@ class Lightstrip:
             c = self.color
             c.luminance = luminance
             self.light(c)
-
-        #if self.pulse_timer > 0.0:
-        #    self.pulse_timer -= dt
-        #elif self.pulse_timer < 0.0:
-        #    self.depulse()
 
 class Drumlights:
     def __init__(self):
@@ -80,7 +73,7 @@ class Drumlights:
 
     def setup_lightstrips(self):
         self.lightstrips = (
-            Lightstrip('test', board.D18, 5, Color('blue')),
+            Lightstrip('test', 0, Color('blue')),
             #Lightstrip('snare', board.D18, 5, Color('blue')),
             #Lightstrip('tom1', board.D18, 5, Color('blue')),
             #Lightstrip('tom2', board.D18, 5, Color('blue')),
@@ -111,6 +104,8 @@ class Drumlights:
             self.update_lightstrips(dt)
 
 print('starting drumlights...')
+
+arduino = serial.Serial(port='/dev/ARDUINO', baudrate=115200, timeout=0.1)
 
 d = Drumlights()
 d.run()
