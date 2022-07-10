@@ -73,6 +73,8 @@ class Drumlights:
         self.setup_midi()
         self.setup_lightstrips()
 
+        print(arduino.readline())
+
     def setup_midi(self):
         self.midi_device_name = [m for m in mido.get_input_names() if 'USB Midi Cable' in m][0]
         self.midi_inport = mido.open_input(self.midi_device_name)
