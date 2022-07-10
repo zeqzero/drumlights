@@ -106,7 +106,7 @@ class Drumlights:
             try:
                 lightstrip.update(t)
             except ValueError:
-                print('ValueError in lightstrip update()... look in to it ya fuckin idiot')
+                print('ValueError in lightstrip update()')
 
     def run(self):
         t = time.time()
