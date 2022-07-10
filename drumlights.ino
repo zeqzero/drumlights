@@ -111,52 +111,27 @@ void clearAllLEDs() {
 }
 
 void setup() {
-  Serial.begin(115200);
-  
-  pinMode (LED, OUTPUT); // Set Arduino board pin 13 to output
-
-  /*
-  FastLED.addLeds<NEOPIXEL, 2>(kick_leds, NUM_LEDS_KICK);
-  FastLED.addLeds<NEOPIXEL, 3>(snare_leds, NUM_LEDS_SNARE);
-  FastLED.addLeds<NEOPIXEL, 4>(tom1_leds, NUM_LEDS_TOM1);
-  FastLED.addLeds<NEOPIXEL, 5>(tom2_leds, NUM_LEDS_TOM2);
-  FastLED.addLeds<NEOPIXEL, 6>(tom3_leds, NUM_LEDS_TOM3);
-  FastLED.addLeds<NEOPIXEL, 7>(hhat_leds, NUM_LEDS_HHAT);
-  FastLED.addLeds<NEOPIXEL, 8>(crash1_leds, NUM_LEDS_CRASH1);
-  FastLED.addLeds<NEOPIXEL, 9>(crash2_leds, NUM_LEDS_CRASH2);
-  FastLED.addLeds<NEOPIXEL, 10>(ride_leds, NUM_LEDS_RIDE);
-  */
-  FastLED.addLeds<NEOPIXEL, 11>(test_leds, NUM_LEDS_TEST);
+ Serial.begin(115200);
+ Serial.setTimeout(1);
+ 
+ FastLED.addLeds<NEOPIXEL, 11>(test_leds, NUM_LEDS_TEST);
 }
 
-void loop() { // Main loop
+void loop() {
+ while (!Serial.available());
+ String command = Serial.readString();
 
-  if (Serial.available()) {
-    String command = Serial.readString();
+ if (command.length() == 13){
+  String stripname = command.substring(0,4);
+  String r = command.substring(4,7);
+  String g = command.substring(7,10);
+  String b = command.substring(10);
 
-    if (command.length() == 13) {
-      String stripname = command.substring(0,4);
-      String r = command.substring(4,7);
-      String g = command.substring(7,10);
-      String b = command.substring(10);
+  lightLEDs(test_leds, NUM_LEDS_TEST, r.toInt(), g.toInt(), b.toInt());
 
-      lightLEDs(test_leds, NUM_LEDS_TEST, r.toInt(), g.toInt(), b.toInt());
-    }
-
-    /*
-    if (command == "led_on") {
-      lightLEDs(test_leds, NUM_LEDS_TEST, 0, 0, 127);
-    } else if (command == "led_off") {
-      lightLEDs(test_leds, NUM_LEDS_TEST, 0, 0, 0);
-    }
-    */
-    
-  } else {
-    lightLEDs(test_leds, NUM_LEDS_TEST, 0, 0, 0);
-    digitalWrite(LED,HIGH);  //Turn system LED on
-    delay(500);
-    lightLEDs(test_leds, NUM_LEDS_TEST, 0, 0, 127);
-    digitalWrite(LED,LOW);//Turn system LED off
-    delay(500);
-  }
+  Serial.print(1337);
+ } else {
+  Serial.print(80085);
+ }
+ 
 }
