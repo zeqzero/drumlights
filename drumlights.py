@@ -23,10 +23,16 @@ class Lightstrip:
         self.current_pulsed_luminance = 0.0
         self.turn_on()
 
+    def readWriteSerial(self, writeMsg):
+        readMsg = arduino.readline()
+        while readMsg:
+            print(readMsg)
+            readMsg = arduino.readline()
+        arduino.write(writeMsg)
+
     def light(self, color):
         if debug: print('light()', color.rgb)
-        arduino.write(str.encode('<{},{},{},{}>'.format(id,*color.rgb)))
-        print(arduino.readline())
+        self.readWriteSerial(str.encode('<{},{},{},{}>'.format(id,*color.rgb)))
 
     def turn_on(self, luminance=None):
         if debug: print('turn_on()')
