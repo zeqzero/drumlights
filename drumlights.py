@@ -12,7 +12,7 @@ def ftoi(float_tuple):
 def lerp(a, b, t):
     return (1.0 - t) * a + t * b
 
-arduino = serial.Serial(port='/dev/ARDUINO', baudrate=115200, timeout=0.1)
+arduino = serial.Serial(port='/dev/ARDUINO', baudrate=115200)
 def dumpSerial():
     readMsg = arduino.readline()
     while readMsg:
