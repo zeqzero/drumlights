@@ -13,7 +13,7 @@ def lerp(a, b, t):
     return (1.0 - t) * a + t * b
 
 arduino = serial.Serial(port='/dev/ARDUINO', baudrate=115200, timeout=0.1)
-def dumpSerial(self):
+def dumpSerial():
         readMsg = arduino.readline()
         while readMsg:
             print(readMsg)
