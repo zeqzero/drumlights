@@ -14,10 +14,10 @@ def lerp(a, b, t):
 
 arduino = serial.Serial(port='/dev/ARDUINO', baudrate=115200, timeout=0.1)
 def dumpSerial():
+    readMsg = arduino.readline()
+    while readMsg:
+        print(readMsg)
         readMsg = arduino.readline()
-        while readMsg:
-            print(readMsg)
-            readMsg = arduino.readline()
 
 class Lightstrip:
     def __init__(self, name, id, color):
@@ -36,6 +36,7 @@ class Lightstrip:
             print(readMsg)
             readMsg = arduino.readline()
         arduino.write(writeMsg)
+        if debug: print('wrote to serial: ', writeMsg)
 
     def light(self, color):
         if debug: print('light()', color.rgb)
