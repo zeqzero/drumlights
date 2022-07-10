@@ -12,7 +12,7 @@ def ftoi(float_tuple):
 def lerp(a, b, t):
     return (1.0 - t) * a + t * b
 
-arduino = serial.Serial(port='/dev/ARDUINO', baudrate=115200, timeout=0.001)
+arduino = serial.Serial(port='/dev/ARDUINO', baudrate=115200, timeout=0)
 def dumpSerial():
     readMsg = arduino.readline()
     while readMsg:
@@ -107,6 +107,7 @@ class Drumlights:
                 lightstrip.update(t)
             except ValueError:
                 print('ValueError in lightstrip update()')
+                lightstrip.turn_on()
 
     def run(self):
         t = time.time()
