@@ -39,7 +39,7 @@ class Lightstrip:
 
     def light(self, color):
         if debug: print('light()', color.rgb)
-        self.readWriteSerial(str.encode('<{},{},{},{}>'.format(id,*color.rgb)))
+        self.readWriteSerial(str.encode('<{},{},{},{}>'.format(id,*ftoi(color.rgb))))
 
     def turn_on(self, luminance=None):
         if debug: print('turn_on()')
