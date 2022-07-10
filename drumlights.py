@@ -98,7 +98,7 @@ class Drumlights:
             Lightstrip('crash1', 8, Color('green'), [55, 49]),
             Lightstrip('crash2', 9, Color('green'), [59, 51]),
             Lightstrip('ride', 10, Color('blue'), [52, 57]),
-            Lightstrip('test', 11, Color('pink'), [48]),
+            Lightstrip('test', 11, Color('pink'), [46]),
         )
 
     def update_lightstrips(self, t):
