@@ -24,8 +24,17 @@ void lightLEDs(CRGB leds[], int num_leds, int r, int g, int b) {
   FastLED.show();
 }
 
+unsigned long t_last_action;
+bool on;
+
 void MyHandleNoteOn(byte channel, byte note, byte velocity) {
   digitalWrite(LED, HIGH);  //Turn system LED on
+
+  t_last_action = millis();
+
+  if (!on) {
+    resetAllLEDs();
+  }
 
   if (note == NOTENUM_KICK) {
     lightLEDs(kick_leds, NUM_LEDS_KICK, 255, 128, 32);
@@ -94,12 +103,28 @@ void MyHandleNoteOff(byte channel, byte note, byte velocity) {
   }
 }
 
-void clearAllLEDs() {
+void resetAllLEDs() {
+  t_last_action = millis();
+  on = true;
   lightLEDs(kick_leds, NUM_LEDS_KICK, 64, 32, 0);
   lightLEDs(snare_leds, NUM_LEDS_SNARE, 64, 0, 0);
   lightLEDs(tom1_leds, NUM_LEDS_TOM1, 64, 60, 4);
   lightLEDs(tom2_leds, NUM_LEDS_TOM2, 0, 0, 64);
   lightLEDs(tom3_leds, NUM_LEDS_TOM3, 0, 64, 0);
+  lightLEDs(hhat_leds, NUM_LEDS_HHAT, 0, 0, 0);
+  lightLEDs(crash1_leds, NUM_LEDS_CRASH1, 0, 0, 0);
+  lightLEDs(crash2_leds, NUM_LEDS_CRASH2, 0, 0, 0);
+  lightLEDs(ride_leds, NUM_LEDS_RIDE, 0, 0, 0);
+}
+
+void clearAllLEDs() {
+  t_last_action = millis();
+  on = false;
+  lightLEDs(kick_leds, NUM_LEDS_KICK, 0, 0, 0);
+  lightLEDs(snare_leds, NUM_LEDS_SNARE, 0, 0, 0);
+  lightLEDs(tom1_leds, NUM_LEDS_TOM1, 0, 0, 0);
+  lightLEDs(tom2_leds, NUM_LEDS_TOM2, 0, 0, 0);
+  lightLEDs(tom3_leds, NUM_LEDS_TOM3, 0, 0, 0);
   lightLEDs(hhat_leds, NUM_LEDS_HHAT, 0, 0, 0);
   lightLEDs(crash1_leds, NUM_LEDS_CRASH1, 0, 0, 0);
   lightLEDs(crash2_leds, NUM_LEDS_CRASH2, 0, 0, 0);
@@ -126,9 +151,12 @@ void setup() {
   FastLED.addLeds<NEOPIXEL, 9>(crash2_leds, NUM_LEDS_CRASH2);
   FastLED.addLeds<NEOPIXEL, 10>(ride_leds, NUM_LEDS_RIDE);
 
-  clearAllLEDs();
+  resetAllLEDs();
 }
 
 void loop() { // Main loop
   MIDI.read(); // Continually check what Midi Commands have been received.
+  if ((millis() - t_last_action) > 300000) {
+    clearAllLEDs();
+  }
 }
