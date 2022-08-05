@@ -17,18 +17,9 @@ CRGB crash1_leds[NUM_LEDS_CRASH1];
 CRGB crash2_leds[NUM_LEDS_CRASH2];
 CRGB ride_leds[NUM_LEDS_RIDE];
 
-unsigned long previousTime = 0;
-
 void lightLEDs(CRGB leds[], int num_leds, int r, int g, int b) {
   for (int led=0; led<num_leds; led++) {
     leds[led].setRGB(r, g, b);
-  }
-  FastLED.show();
-}
-
-void lightLEDs(CRGB leds[], int num_leds, int color) {
-  for (int led=0; led<num_leds; led++) {
-    leds[led] = color;
   }
   FastLED.show();
 }
@@ -37,34 +28,34 @@ void MyHandleNoteOn(byte channel, byte note, byte velocity) {
   digitalWrite(LED, HIGH);  //Turn system LED on
 
   if (note == NOTENUM_KICK) {
-    lightLEDs(kick_leds, NUM_LEDS_KICK, 0, 255, 255);
+    lightLEDs(kick_leds, NUM_LEDS_KICK, 255, 128, 32);
   }
   if (note == NOTENUM_SNARE) {
-    lightLEDs(snare_leds, NUM_LEDS_SNARE, 255, 255, 0);
+    lightLEDs(snare_leds, NUM_LEDS_SNARE, 255, 32, 32);
   }
   if (note == NOTENUM_TOM1) {
-    lightLEDs(tom1_leds, NUM_LEDS_TOM1, 255, 0, 0);
+    lightLEDs(tom1_leds, NUM_LEDS_TOM1, 255, 255, 32);
   }
   if (note == NOTENUM_TOM2) {
-    lightLEDs(tom2_leds, NUM_LEDS_TOM2, 0, 255, 0);
+    lightLEDs(tom2_leds, NUM_LEDS_TOM2, 32, 32, 255);
   }
   if (note == NOTENUM_TOM3) {
-    lightLEDs(tom3_leds, NUM_LEDS_TOM3, 0, 0, 255);
+    lightLEDs(tom3_leds, NUM_LEDS_TOM3, 32, 255, 32);
   }
   if (note == NOTENUM_HHAT_CLOSED) {
-    lightLEDs(hhat_leds, NUM_LEDS_HHAT, 255, 0, 255);
+    lightLEDs(hhat_leds, NUM_LEDS_HHAT, 255, 255, 128);
   }
   if (note == NOTENUM_HHAT_OPEN) {
-    lightLEDs(hhat_leds, NUM_LEDS_HHAT, 255, 0, 255);
+    lightLEDs(hhat_leds, NUM_LEDS_HHAT, 32, 32, 255);
   }
   if (note == NOTENUM_CRASH1) {
-    lightLEDs(crash1_leds, NUM_LEDS_CRASH1, 255, 127, 63);
+    lightLEDs(crash1_leds, NUM_LEDS_CRASH1, 32, 255, 32);
   }
   if (note == NOTENUM_RIDE) {
-    lightLEDs(ride_leds, NUM_LEDS_RIDE, 127, 63, 255);
+    lightLEDs(ride_leds, NUM_LEDS_RIDE, 32, 32, 255);
   }
   if (note == NOTENUM_CRASH2) {
-    lightLEDs(crash2_leds, NUM_LEDS_CRASH2, 63, 255, 127);
+    lightLEDs(crash2_leds, NUM_LEDS_CRASH2, 32, 255, 32);
   }
 }
 
@@ -72,19 +63,19 @@ void MyHandleNoteOff(byte channel, byte note, byte velocity) {
   digitalWrite(LED, LOW);//Turn system LED off
 
   if (note == NOTENUM_KICK) {
-    lightLEDs(kick_leds, NUM_LEDS_KICK, 0, 0, 0);
+    lightLEDs(kick_leds, NUM_LEDS_KICK, 64, 32, 0);
   }
   if (note == NOTENUM_SNARE) {
-    lightLEDs(snare_leds, NUM_LEDS_SNARE, 0, 0, 0);
+    lightLEDs(snare_leds, NUM_LEDS_SNARE, 64, 0, 0);
   }
   if (note == NOTENUM_TOM1) {
-    lightLEDs(tom1_leds, NUM_LEDS_TOM1, 0, 0, 0);
+    lightLEDs(tom1_leds, NUM_LEDS_TOM1, 64, 60, 4);
   }
   if (note == NOTENUM_TOM2) {
-    lightLEDs(tom2_leds, NUM_LEDS_TOM2, 0, 0, 0);
+    lightLEDs(tom2_leds, NUM_LEDS_TOM2, 0, 0, 64);
   }
   if (note == NOTENUM_TOM3) {
-    lightLEDs(tom3_leds, NUM_LEDS_TOM3, 0, 0, 0);
+    lightLEDs(tom3_leds, NUM_LEDS_TOM3, 0, 64, 0);
   }
   if (note == NOTENUM_HHAT_CLOSED) {
     lightLEDs(hhat_leds, NUM_LEDS_HHAT, 0, 0, 0);
@@ -104,11 +95,11 @@ void MyHandleNoteOff(byte channel, byte note, byte velocity) {
 }
 
 void clearAllLEDs() {
-  lightLEDs(kick_leds, NUM_LEDS_KICK, 0, 0, 0);
-  lightLEDs(snare_leds, NUM_LEDS_SNARE, 0, 0, 0);
-  lightLEDs(tom1_leds, NUM_LEDS_TOM1, 0, 0, 0);
-  lightLEDs(tom2_leds, NUM_LEDS_TOM2, 0, 0, 0);
-  lightLEDs(tom3_leds, NUM_LEDS_TOM3, 0, 0, 0);
+  lightLEDs(kick_leds, NUM_LEDS_KICK, 64, 32, 0);
+  lightLEDs(snare_leds, NUM_LEDS_SNARE, 64, 0, 0);
+  lightLEDs(tom1_leds, NUM_LEDS_TOM1, 64, 60, 4);
+  lightLEDs(tom2_leds, NUM_LEDS_TOM2, 0, 0, 64);
+  lightLEDs(tom3_leds, NUM_LEDS_TOM3, 0, 64, 0);
   lightLEDs(hhat_leds, NUM_LEDS_HHAT, 0, 0, 0);
   lightLEDs(crash1_leds, NUM_LEDS_CRASH1, 0, 0, 0);
   lightLEDs(crash2_leds, NUM_LEDS_CRASH2, 0, 0, 0);
@@ -134,9 +125,10 @@ void setup() {
   FastLED.addLeds<NEOPIXEL, 8>(crash1_leds, NUM_LEDS_CRASH1);
   FastLED.addLeds<NEOPIXEL, 9>(crash2_leds, NUM_LEDS_CRASH2);
   FastLED.addLeds<NEOPIXEL, 10>(ride_leds, NUM_LEDS_RIDE);
+
+  clearAllLEDs();
 }
 
 void loop() { // Main loop
   MIDI.read(); // Continually check what Midi Commands have been received.
-
 }
