@@ -26,66 +26,79 @@ void lightLEDs(CRGB leds[], int num_leds, int r, int g, int b) {
   FastLED.show();
 }
 
-void MyHandleNoteOn(byte channel, byte note, byte velocity) {
-  digitalWrite(LED,HIGH);  //Turn system LED on
+void lightLEDs(CRGB leds[], int num_leds, int color) {
+  for (int led=0; led<num_leds; led++) {
+    leds[led] = color;
+  }
+  FastLED.show();
+}
 
-  if (note == NOTENUM_KICK_HEAD) {
+void MyHandleNoteOn(byte channel, byte note, byte velocity) {
+  digitalWrite(LED, HIGH);  //Turn system LED on
+
+  if (note == NOTENUM_KICK) {
     lightLEDs(kick_leds, NUM_LEDS_KICK, 0, 255, 255);
   }
-  else if ((note == NOTENUM_SNARE_RIM) || (note == NOTENUM_SNARE_HEAD)) {
+  if (note == NOTENUM_SNARE) {
     lightLEDs(snare_leds, NUM_LEDS_SNARE, 255, 255, 0);
   }
-  else if ((note == NOTENUM_TOM1_RIM) || (note == NOTENUM_TOM1_HEAD)) {
+  if (note == NOTENUM_TOM1) {
     lightLEDs(tom1_leds, NUM_LEDS_TOM1, 255, 0, 0);
   }
-  else if ((note == NOTENUM_TOM2_RIM) || (note == NOTENUM_TOM2_HEAD)) {
+  if (note == NOTENUM_TOM2) {
     lightLEDs(tom2_leds, NUM_LEDS_TOM2, 0, 255, 0);
   }
-  else if ((note == NOTENUM_TOM3_RIM) || (note == NOTENUM_TOM3_HEAD)) {
+  if (note == NOTENUM_TOM3) {
     lightLEDs(tom3_leds, NUM_LEDS_TOM3, 0, 0, 255);
   }
-  else if ((note == NOTENUM_HHAT_OPEN_RIM) || (note == NOTENUM_HHAT_CLOSED_RIM) || (note == NOTENUM_HHAT_OPEN_HEAD) || (note == NOTENUM_HHAT_CLOSED_HEAD)) {
+  if (note == NOTENUM_HHAT_CLOSED) {
     lightLEDs(hhat_leds, NUM_LEDS_HHAT, 255, 0, 255);
   }
-  else if ((note == NOTENUM_CRASH1_RIM) || (note == NOTENUM_CRASH1_HEAD)) {
+  if (note == NOTENUM_HHAT_OPEN) {
+    lightLEDs(hhat_leds, NUM_LEDS_HHAT, 255, 0, 255);
+  }
+  if (note == NOTENUM_CRASH1) {
     lightLEDs(crash1_leds, NUM_LEDS_CRASH1, 255, 127, 63);
   }
-  else if ((note == NOTENUM_RIDE_RIM) || (note == NOTENUM_RIDE_HEAD)) {
+  if (note == NOTENUM_RIDE) {
     lightLEDs(ride_leds, NUM_LEDS_RIDE, 127, 63, 255);
   }
-  else if ((note == NOTENUM_CRASH2_RIM) || (note == NOTENUM_CRASH2_HEAD)) {
+  if (note == NOTENUM_CRASH2) {
     lightLEDs(crash2_leds, NUM_LEDS_CRASH2, 63, 255, 127);
   }
 }
 
 void MyHandleNoteOff(byte channel, byte note, byte velocity) {
-  digitalWrite(LED,LOW);//Turn system LED off
+  digitalWrite(LED, LOW);//Turn system LED off
 
-  if (note == NOTENUM_KICK_HEAD) {
+  if (note == NOTENUM_KICK) {
     lightLEDs(kick_leds, NUM_LEDS_KICK, 0, 0, 0);
   }
-  else if ((note == NOTENUM_SNARE_RIM) || (note == NOTENUM_SNARE_HEAD)) {
+  if (note == NOTENUM_SNARE) {
     lightLEDs(snare_leds, NUM_LEDS_SNARE, 0, 0, 0);
   }
-  else if ((note == NOTENUM_TOM1_RIM) || (note == NOTENUM_TOM1_HEAD)) {
+  if (note == NOTENUM_TOM1) {
     lightLEDs(tom1_leds, NUM_LEDS_TOM1, 0, 0, 0);
   }
-  else if ((note == NOTENUM_TOM2_RIM) || (note == NOTENUM_TOM2_HEAD)) {
+  if (note == NOTENUM_TOM2) {
     lightLEDs(tom2_leds, NUM_LEDS_TOM2, 0, 0, 0);
   }
-  else if ((note == NOTENUM_TOM3_RIM) || (note == NOTENUM_TOM3_HEAD)) {
+  if (note == NOTENUM_TOM3) {
     lightLEDs(tom3_leds, NUM_LEDS_TOM3, 0, 0, 0);
   }
-  else if ((note == NOTENUM_HHAT_OPEN_RIM) || (note == NOTENUM_HHAT_CLOSED_RIM) || (note == NOTENUM_HHAT_OPEN_HEAD) || (note == NOTENUM_HHAT_CLOSED_HEAD)) {
+  if (note == NOTENUM_HHAT_CLOSED) {
     lightLEDs(hhat_leds, NUM_LEDS_HHAT, 0, 0, 0);
   }
-  else if ((note == NOTENUM_CRASH1_RIM) || (note == NOTENUM_CRASH1_HEAD)) {
+  if (note == NOTENUM_HHAT_OPEN) {
+    lightLEDs(hhat_leds, NUM_LEDS_HHAT, 0, 0, 0);
+  }
+  if (note == NOTENUM_CRASH1) {
     lightLEDs(crash1_leds, NUM_LEDS_CRASH1, 0, 0, 0);
   }
-  else if ((note == NOTENUM_RIDE_RIM) || (note == NOTENUM_RIDE_HEAD)) {
+  if (note == NOTENUM_RIDE) {
     lightLEDs(ride_leds, NUM_LEDS_RIDE, 0, 0, 0);
   }
-  else if ((note == NOTENUM_CRASH2_RIM) || (note == NOTENUM_CRASH2_HEAD)) {
+  if (note == NOTENUM_CRASH2) {
     lightLEDs(crash2_leds, NUM_LEDS_CRASH2, 0, 0, 0);
   }
 }
